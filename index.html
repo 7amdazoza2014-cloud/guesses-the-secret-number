@@ -5,7 +5,7 @@
 <title>Guess the Number</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ⭐ GAME MONETIZE SDK ⭐ -->
+<!-- ⭐ GAME MONETIZE SDK (SAFE) ⭐ -->
 <script>
 window.SDK_OPTIONS = {
     gameId: "8evd80evx4c7xyz9deor4owlb32qrjw4",
@@ -24,6 +24,8 @@ function showAd(){
         sdk.showRewardedAd(function(success){
             console.log("Ad watched:", success);
         });
+    } else {
+        console.log("Rewarded ads not available");
     }
 }
 </script>
@@ -32,7 +34,7 @@ function showAd(){
 body {
   font-family: Arial, sans-serif;
   background: url("ed.jpg") no-repeat center center fixed;
-  background: #0f172a;
+  background-size: cover;
   color: #e5e7eb;
   display: flex;
   justify-content: center;
@@ -40,6 +42,7 @@ body {
   height: 100vh;
   margin: 0;
 }
+
 .game {
   background: #1e293b;
   padding: 20px 30px;
@@ -198,7 +201,7 @@ function buyHint(){
   if(mode===1) current="p1";
 
   if(money[current]<25){
-    document.getElementById("message").textContent="Not enough money!";
+    message.textContent="Not enough money!";
     return;
   }
 
@@ -207,13 +210,13 @@ function buyHint(){
   updateMoney();
 
   let n=secret[current];
-  document.getElementById("message").textContent="Hint: Between "+(n-5)+" and "+(n+5);
+  message.textContent="Hint: Between "+(n-5)+" and "+(n+5);
 }
 
 function makeGuess(){
   let g=Number(document.getElementById("guessInput").value);
   if(!g||g<1||g>100){
-    document.getElementById("message").textContent="Enter a number 1–100";
+    message.textContent="Enter a number 1–100";
     return;
   }
 
@@ -228,14 +231,14 @@ function makeGuess(){
     saveMoney();
     updateMoney();
 
-    document.getElementById("message").textContent=players[turn]+" wins! Earned $"+r;
+    message.textContent=players[turn]+" wins! Earned $"+r;
     document.getElementById("resetBtn").style.display="block";
 
     showAd();
     return;
   }
 
-  document.getElementById("message").textContent = g<secret[current] ? "Higher!" : "Lower!";
+  message.textContent = g<secret[current] ? "Higher!" : "Lower!";
 
   if(mode===2){
     turn = turn===0?1:0;
@@ -249,7 +252,7 @@ function resetGame(){
   secret.p2=Math.floor(Math.random()*100)+1;
   turn=0;
 
-  document.getElementById("message").textContent="";
+  message.textContent="";
   document.getElementById("resetBtn").style.display="none";
   updateTurn();
 }
