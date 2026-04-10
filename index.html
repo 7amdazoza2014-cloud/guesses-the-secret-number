@@ -5,7 +5,16 @@
 <title>Guess the Number</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ⭐ GAME MONETIZE SDK (SAFE) ⭐ -->
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X8M2ZLCKNX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-X8M2ZLCKNX");
+</script>
+
+<!-- GameMonetize SDK (CORRECT VERSION) -->
 <script>
 window.SDK_OPTIONS = {
     gameId: "8evd80evx4c7xyz9deor4owlb32qrjw4",
@@ -25,110 +34,113 @@ function showAd(){
             console.log("Ad watched:", success);
         });
     } else {
-        console.log("Rewarded ads not available");
+        console.log("SDK not ready yet");
     }
 }
 </script>
 
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background: url("ed.jpg") no-repeat center center fixed;
-  background-size: cover;
-  color: #e5e7eb;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.game {
-  background: #1e293b;
-  padding: 20px 30px;
-  border-radius: 10px;
-  text-align: center;
-  width: 350px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
-h1 {
-  color: #3b82f6;
-  margin-top: 0;
-}
-input, button {
-  padding: 10px;
-  width: 90%;
-  margin: 5px 0;
-  border-radius: 6px;
-  border: none;
-}
-input {
-  background: #0f172a;
-  color: white;
-  border: 1px solid #475569;
-}
-button {
-  background: #3b82f6;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:hover { background: #2563eb; }
-.green { background: #10b981 !important; }
-.yellow { background: #facc15 !important; color: black !important; }
-.message { min-height: 24px; margin-top: 10px; }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: url("ed.jpg") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: white;
+    }
+    .box {
+        background: rgba(0,0,0,0.6);
+        padding: 25px;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 380px;
+        text-align: center;
+    }
+    h1 {
+        margin-top: 0;
+        font-size: 32px;
+        font-weight: bold;
+        color: #3b82f6;
+        text-shadow: 0 0 10px #3b82f6;
+    }
+    input, button {
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin: 6px 0;
+        width: 100%;
+        font-size: 16px;
+    }
+    input {
+        background: #111827;
+        color: white;
+        border: 1px solid #4b5563;
+    }
+    button {
+        background: #3b82f6;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:hover {
+        background: #2563eb;
+    }
+    .green { background: #10b981 !important; }
+    .yellow { background: #facc15 !important; color: black !important; }
+    .message { min-height: 24px; margin-top: 10px; }
 </style>
 </head>
 
 <body>
 
-<div class="game">
+<div class="box">
 
 <h1>Guess the Number</h1>
 
-<!-- MONEY RULES -->
-<div style="background:#0f172a;padding:10px;border-radius:8px;text-align:left;">
-  <strong>Money Rewards:</strong>
-  <ul style="margin-left:15px;">
-    <li>1 attempt = $50</li>
-    <li>2 attempts = $40</li>
-    <li>3 attempts = $30</li>
-    <li>4 attempts = $20</li>
-    <li>5 attempts = $10</li>
-    <li>6+ attempts = $5</li>
-  </ul>
+<div style="background:#111827; padding:10px; border-radius:8px; text-align:left;">
+    <strong>Money Rewards:</strong>
+    <ul style="margin:8px 0 0 15px;">
+        <li>1 attempt = $50</li>
+        <li>2 attempts = $40</li>
+        <li>3 attempts = $30</li>
+        <li>4 attempts = $20</li>
+        <li>5 attempts = $10</li>
+        <li>6+ attempts = $5</li>
+    </ul>
 </div>
 
-<!-- MODE SELECT -->
 <div id="modeSelect">
-  <p>Select Game Mode</p>
-  <button onclick="chooseMode(1)">1 Player</button>
-  <button onclick="chooseMode(2)">2 Players</button>
+    <p>Select Game Mode</p>
+    <button onclick="chooseMode(1)">1 Player</button>
+    <button onclick="chooseMode(2)">2 Players</button>
 </div>
 
-<!-- LOGIN -->
-<div id="loginArea" style="display:none;">
-  <p>Player 1 Name:</p>
-  <input id="p1">
-  <p>Player 2 Name:</p>
-  <input id="p2">
-  <button onclick="start2Player()">Start</button>
+<div id="login" style="display:none;">
+    <p>Player 1 Name:</p>
+    <input id="p1">
+    <p>Player 2 Name:</p>
+    <input id="p2">
+    <button onclick="start2P()">Start</button>
 </div>
 
-<!-- GAME AREA -->
-<div id="gameArea" style="display:none;">
-  <p id="turnInfo"></p>
-  <p>Guess a number between 1 and 100</p>
+<div id="game" style="display:none;">
+    <p id="turn"></p>
+    <p>Guess a number between 1 and 100</p>
 
-  <input id="guessInput" type="number">
-  <button onclick="makeGuess()">Guess</button>
-  <button class="green" onclick="buyHint()">Buy Hint ($25)</button>
+    <input id="guess" type="number" min="1" max="100">
+    <button onclick="guessNumber()">Guess</button>
 
-  <div class="message" id="message"></div>
-  <p id="attemptsInfo"></p>
-  <p id="moneyInfo"></p>
+    <button class="green" onclick="buyHint()">Buy Hint ($25)</button>
 
-  <button id="resetBtn" class="yellow" style="display:none;" onclick="resetGame()">Play Again</button>
+    <div class="message" id="msg"></div>
+
+    <p id="attempts"></p>
+    <p id="money"></p>
+
+    <button class="yellow" id="again" style="display:none;" onclick="resetGame()">Play Again</button>
 </div>
 
 </div>
@@ -138,123 +150,134 @@ let mode = 1;
 let players = [];
 let turn = 0;
 
-let secret = {p1:0,p2:0};
-let attempts = {p1:0,p2:0};
-let money = {p1:0,p2:0};
+let secret = { p1: 0, p2: 0 };
+let attempts = { p1: 0, p2: 0 };
+let money = { p1: 0, p2: 0 };
 
-if(localStorage.money_p1) money.p1 = Number(localStorage.money_p1);
-if(localStorage.money_p2) money.p2 = Number(localStorage.money_p2);
+if (localStorage.money_p1) money.p1 = Number(localStorage.money_p1);
+if (localStorage.money_p2) money.p2 = Number(localStorage.money_p2);
 
-function saveMoney(){
-  localStorage.money_p1 = money.p1;
-  localStorage.money_p2 = money.p2;
+function saveMoney() {
+    localStorage.money_p1 = money.p1;
+    localStorage.money_p2 = money.p2;
 }
 
-function reward(a){
-  return Math.max(5, 60 - a*10);
+function reward(attempts) {
+    return Math.max(5, 60 - attempts * 10);
 }
 
-function chooseMode(m){
-  mode = m;
-  document.getElementById("modeSelect").style.display = "none";
-  if(m===1) start1Player();
-  else document.getElementById("loginArea").style.display = "block";
+function chooseMode(m) {
+    mode = m;
+    document.getElementById("modeSelect").style.display = "none";
+
+    if (m === 1) start1P();
+    else document.getElementById("login").style.display = "block";
 }
 
-function start1Player(){
-  players=["Player"];
-  secret.p1 = Math.floor(Math.random()*100)+1;
-  document.getElementById("gameArea").style.display="block";
-  document.getElementById("turnInfo").textContent="Your turn";
-  updateMoney();
+function start1P() {
+    players = ["Player"];
+    secret.p1 = Math.floor(Math.random() * 100) + 1;
+
+    document.getElementById("game").style.display = "block";
+    document.getElementById("turn").textContent = "Your turn";
+    updateMoney();
 }
 
-function start2Player(){
-  let p1=document.getElementById("p1").value.trim();
-  let p2=document.getElementById("p2").value.trim();
-  if(!p1||!p2){ alert("Enter both names"); return; }
+function start2P() {
+    let p1 = document.getElementById("p1").value.trim();
+    let p2 = document.getElementById("p2").value.trim();
 
-  players=[p1,p2];
-  secret.p1=Math.floor(Math.random()*100)+1;
-  secret.p2=Math.floor(Math.random()*100)+1;
+    if (!p1 || !p2) return alert("Enter both names");
 
-  document.getElementById("loginArea").style.display="none";
-  document.getElementById("gameArea").style.display="block";
-  updateTurn();
-  updateMoney();
+    players = [p1, p2];
+    secret.p1 = Math.floor(Math.random() * 100) + 1;
+    secret.p2 = Math.floor(Math.random() * 100) + 1;
+
+    document.getElementById("login").style.display = "none";
+    document.getElementById("game").style.display = "block";
+
+    updateTurn();
+    updateMoney();
 }
 
-function updateTurn(){
-  document.getElementById("turnInfo").textContent = players[turn]+"'s turn";
+function updateTurn() {
+    document.getElementById("turn").textContent = players[turn] + "'s turn";
 }
 
-function updateMoney(){
-  if(mode===1)
-    document.getElementById("moneyInfo").textContent="Money: $"+money.p1;
-  else
-    document.getElementById("moneyInfo").textContent=
-      players[0]+": $"+money.p1+" | "+players[1]+": $"+money.p2;
+function updateMoney() {
+    if (mode === 1) {
+        document.getElementById("money").textContent = "Money: $" + money.p1;
+    } else {
+        document.getElementById("money").textContent =
+            players[0] + ": $" + money.p1 + " | " +
+            players[1] + ": $" + money.p2;
+    }
 }
 
-function buyHint(){
-  let current = turn===0?"p1":"p2";
-  if(mode===1) current="p1";
+function buyHint() {
+    let current = turn === 0 ? "p1" : "p2";
 
-  if(money[current]<25){
-    message.textContent="Not enough money!";
-    return;
-  }
+    if (money[current] < 25) {
+        document.getElementById("msg").textContent = "Not enough money!";
+        return;
+    }
 
-  money[current]-=25;
-  saveMoney();
-  updateMoney();
-
-  let n=secret[current];
-  message.textContent="Hint: Between "+(n-5)+" and "+(n+5);
-}
-
-function makeGuess(){
-  let g=Number(document.getElementById("guessInput").value);
-  if(!g||g<1||g>100){
-    message.textContent="Enter a number 1–100";
-    return;
-  }
-
-  let current = turn===0?"p1":"p2";
-  if(mode===1) current="p1";
-
-  attempts[current]++;
-
-  if(g===secret[current]){
-    let r=reward(attempts[current]);
-    money[current]+=r;
+    money[current] -= 25;
     saveMoney();
     updateMoney();
 
-    message.textContent=players[turn]+" wins! Earned $"+r;
-    document.getElementById("resetBtn").style.display="block";
-
-    showAd();
-    return;
-  }
-
-  message.textContent = g<secret[current] ? "Higher!" : "Lower!";
-
-  if(mode===2){
-    turn = turn===0?1:0;
-    updateTurn();
-  }
+    let n = secret[current];
+    document.getElementById("msg").textContent = `Hint: Between ${n - 5} and ${n + 5}`;
 }
 
-function resetGame(){
-  attempts={p1:0,p2:0};
-  secret.p1=Math.floor(Math.random()*100)+1;
-  secret.p2=Math.floor(Math.random()*100)+1;
-  turn=0;
+function guessNumber() {
+    let g = Number(document.getElementById("guess").value);
+    let msg = document.getElementById("msg");
 
-  message.textContent="";
-  document.getElementById("resetBtn").style.display="none";
-  updateTurn();
+    if (!g || g < 1 || g > 100) {
+        msg.textContent = "Enter a number between 1–100";
+        return;
+    }
+
+    let current = turn === 0 ? "p1" : "p2";
+    attempts[current]++;
+
+    if (g === secret[current]) {
+        let r = reward(attempts[current]);
+        money[current] += r;
+        saveMoney();
+
+        msg.textContent = players[turn] + " wins! Earned $" + r;
+
+        showAd();
+
+        document.getElementById("again").style.display = "block";
+        updateMoney();
+        return;
+    }
+
+    msg.textContent = g < secret[current]
+        ? "Higher!"
+        : "Lower!";
+
+    if (mode === 2) {
+        turn = turn === 0 ? 1 : 0;
+        updateTurn();
+    }
+}
+
+function resetGame() {
+    attempts = { p1: 0, p2: 0 };
+    secret.p1 = Math.floor(Math.random() * 100) + 1;
+    secret.p2 = Math.floor(Math.random() * 100) + 1;
+
+    turn = 0;
+
+    document.getElementById("msg").textContent = "";
+    document.getElementById("again").style.display = "none";
+    document.getElementById("guess").value = "";
+
+    updateTurn();
 }
 </script>
 
