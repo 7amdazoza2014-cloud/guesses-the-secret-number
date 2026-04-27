@@ -530,6 +530,7 @@ label {
 
         <div class="row" style="margin-top:6px;">
             <button class="btn btn-green btn-sm" onclick="buyHint()">Buy Hint ($25)</button>
+            <button class="btn btn-yellow btn-sm" id="watchAdBtn">Watch Ad +100 Coins</button>
             <button class="btn btn-ghost btn-sm" onclick="toggleSound()">Sound: <span id="soundLabel">On</span></button>
         </div>
 
@@ -754,6 +755,24 @@ function buyHint() {
     setMessage("Hint: Between " + low + " and " + high);
     maybeShowAd("hint");
 }
+document.getElementById("watchAdBtn").addEventListener("click", function () {
+    if (window.sdk && typeof sdk.showRewardedAd === "function") {
+        sdk.showRewardedAd(function(success) {
+            if (success) {
+                let current = turn === 0 ? "p1" : "p2";
+                money[current] += 100;
+                saveProgress();
+                updateMoney();
+                setMessage("You earned +$100 from the ad!");
+            } else {
+                setMessage("Ad not completed — no reward.");
+            }
+        });
+    } else {
+        setMessage("Ad not ready yet — try again.");
+    }
+});
+
 
 function guessNumber() {
     const input = document.getElementById("guess");
